@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/drawer.dart';
-import 'package:flutter_application_1/provider.dart';
-import 'package:flutter_application_1/slider.dart';
-import 'package:flutter_application_1/theme.dart';
+import 'package:flutter_application_1/slider_app/slider.dart';
+import 'package:flutter_application_1/theme_app/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -78,36 +76,34 @@ class _Usdtoirt extends State<Usdtoirt> {
           backgroundColor: themeNotifier.isDark
               ? Color.fromARGB(255, 0, 6, 32)
               : Colors.blue.shade50,
-          drawer: const MyDrawer(),
           appBar: AppBar(
               title: Text("currency converter"),
               actions: [
                 AnimatedTheme(
-                   curve: Curves.bounceInOut,
-                   duration: Duration(milliseconds: 500),
-                    data: ThemeData(
-                        brightness: themeNotifier.isDark
-                            ? Brightness.dark
-                            : Brightness.light),
-                child: 
-                Builder(
-                  builder: (BuildContext context) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              themeNotifier.isDark
-                                  ? themeNotifier.isDark = false
-                                  : themeNotifier.isDark = true;
-                            },
-                            icon: Icon(themeNotifier.isDark
-                                ? Icons.light_mode_outlined
-                                : Icons.dark_mode_outlined)),
-                      ],
-                    );
-                  },
-                ),
+                  curve: Curves.bounceInOut,
+                  duration: Duration(milliseconds: 500),
+                  data: ThemeData(
+                      brightness: themeNotifier.isDark
+                          ? Brightness.dark
+                          : Brightness.light),
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                themeNotifier.isDark
+                                    ? themeNotifier.isDark = false
+                                    : themeNotifier.isDark = true;
+                              },
+                              icon: Icon(themeNotifier.isDark
+                                  ? Icons.light_mode_outlined
+                                  : Icons.dark_mode_outlined)),
+                        ],
+                      );
+                    },
+                  ),
                 )
               ],
               backgroundColor: themeNotifier.isDark
@@ -121,16 +117,6 @@ class _Usdtoirt extends State<Usdtoirt> {
                     child: Padding(
                   padding: EdgeInsets.all(15),
                 )),
-                StreamBuilder(
-                    stream: widget.channel.stream,
-                    builder: (context, snapshot) {
-                      return Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Text(snapshot.hasData
-                            ? snapshot.data.toString()
-                            : 'null'),
-                      );
-                    }),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -143,29 +129,6 @@ class _Usdtoirt extends State<Usdtoirt> {
                         child: const Text(
                           "reset",
                         ))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Mybutton1<int>(
-                      groupValue: valuee,
-                      children: [
-                        Mybutton(
-                            myicon: context.watch<Myprovider>().theme ==
-                                    Themedata.dark
-                                ? Icons.abc
-                                : Icons.access_alarm,
-                            mycolors: Colors.red,
-                            valuee: 1),
-                      ],
-                      onChanged: (c) {
-                        setState(
-                          () {
-                            valuee = c;
-                          },
-                        );
-                      },
-                    ),
                   ],
                 ),
                 Center(
@@ -296,15 +259,6 @@ class _Usdtoirt extends State<Usdtoirt> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10),
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      sendMessage();
-                    },
-                    child: Icon(Icons.monetization_on),
-                  ),
-                ),
-                Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ElevatedButton(
                     onPressed: () {
@@ -350,23 +304,5 @@ class _Usdtoirt extends State<Usdtoirt> {
         );
       },
     );
-  }
-
-  void sendMessage() {
-    if (mycontroller.text.isNotEmpty) {
-      print(mycontroller.text);
-      widget.channel.sink.add({
-        {
-          ({"type": "subscribe", "symbol": "BTC-IRR"})
-        }
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    widget.channel.sink.close();
-    mycontroller.dispose();
-    super.dispose();
   }
 }

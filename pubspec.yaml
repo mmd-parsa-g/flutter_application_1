@@ -57,6 +57,7 @@ dependencies:
   animated_theme_switcher: ^2.0.10
   riverpod: ^2.6.1
   riverpod_annotation: ^2.6.1
+  equatable: ^2.0.7
 
 dev_dependencies:
   flutter_test:

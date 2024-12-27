@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/theme.dart';
+import 'package:flutter_application_1/theme_app/theme.dart';
 import 'package:provider/provider.dart';
 
 abstract interface class SliderItem<T> {

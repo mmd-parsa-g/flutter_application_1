@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/main_app.dart';
-import 'package:flutter_application_1/btc.dart';
-import 'package:flutter_application_1/provider.dart';
-import 'package:flutter_application_1/theme.dart';
+import 'package:flutter_application_1/main/main_app.dart';
+
+import 'package:flutter_application_1/theme_app/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
   runApp(
-    MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => Myprovider())],
-      child: const Myapp(),
-    ),
+    const Myapp(),
   );
 }
 
@@ -46,7 +42,6 @@ class _MyappState extends State<Myapp> {
               'Tether': (context) => Usdtoirt(
                   channel: WebSocketChannel.connect(
                       Uri.parse("wss://wss.nobitex.ir/connection/websocket"))),
-              'Btc': (context) => const Btc(),
             },
             initialRoute: 'Tether',
           );
